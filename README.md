@@ -22,10 +22,8 @@
 もっと新しく様々なことにチャレンジしたいという気持ちが強かったため、全く新しい業界へ踏み出しました<br>
 
 # 成果物について
-
+ ◇成果物 <br>
 https://github.com/user-attachments/assets/142d921c-bc30-48e1-b47e-cea96d96c3c5
-
- ◇成果物：https://github.com/user-attachments/assets/0c8d9ebc-27b9-4890-906c-cafaa30d34b8　
  <br>
 すみません、PyGameを利用しているため、Webサイトへアップロードできず、実行ファイルはGitHubの制限によりアップロードできませんでした。<br>
 代替として、起動後の内容を録画して上記へ入れています。<br>
