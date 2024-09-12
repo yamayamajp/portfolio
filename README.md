@@ -23,7 +23,9 @@
 
 # 成果物について
 
- ◇成果物：https://github.com/user-attachments/assets/0c8d9ebc-27b9-4890-906c-cafaa30d34b8
+ ◇成果物：https://github.com/user-attachments/assets/0c8d9ebc-27b9-4890-906c-cafaa30d34b8　<br>
+すみません、PyGameを利用しているため、Webサイトへアップロードできず、実行ファイルはGitHubの制限によりアップロードできませんでした。<br>
+代替として、起動後の内容を録画して上記へ入れています。<br>
 <br>
 
 まずはPythonに慣れてみたい、自分自身のモチベーションをあげるためにも何かを動かしたい、形にしたいと考えました。<br>
