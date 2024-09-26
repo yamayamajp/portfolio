@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import sys
+import random
 
 
 class Player():
@@ -8,6 +9,8 @@ class Player():
         self.px = 200
         self.py = 500
         self.player_image = pygame.image.load("mikata.gif").convert_alpha()
+        self.width = self.player_image.get_width()
+        self.height = self.player_image.get_height()
 
     def update(self,screen,gamen):
 
@@ -45,6 +48,8 @@ class Player():
 
 
         screen.blit(self.player_image, (self.px, self.py))
+        def get_rect(self):
+         return pygame.Rect(self.px, self.py, self.width, self.height)
 
 class Font():
     def __init__(self, font_name, font_size, color):
@@ -64,17 +69,71 @@ class UFO():
         self.uhp = 100
         self.enemy_image = pygame.image.load("teki.gif").convert_alpha()
         self.enemy_image = pygame.transform.scale(self.enemy_image, (50, 50)) 
+        self.bullets = []  # 弾のリスト
 
 
-    def update(self,screen,gamen2):
-        self.ux = self.ux + self.uvx
+    def update(self,screen,gamen):
+        self.ux += self.uvx
         if self.ux>700 or self.ux <0:
             self.uvx *= -1
         #当たり判定    
-        if (self.ux <= gamen2.x <= self.ux + self.uw) and (self.uy <= gamen2.y <= self.uy + self.uh):
+        if (self.ux <= gamen.x <= self.ux + self.uw) and (self.uy <= gamen.y <= self.uy + self.uh):
             self.uhp=0
+        # 敵が弾を発射する
+        if random.randint(1, 100) < 5:  # 5%の確率で弾を発射
+            self.bullets.append(Bullet(self.ux + 25, self.uy + 50))  # 弾の初期位置
+
+        # 弾の更新と描画
+        for bullet in self.bullets[:]:
+
+            if bullet.check_collision(gamen):
+                gamen.hp -= 1  # HPを1減少
+                print(f"プレイヤーのHP: {gamen.hp}")
+
+                if gamen.hp <= 0:
+                    gamen.is_alive = False  # プレイヤーを消失させる
+                    print("プレイヤーは消失しました！")
+
+                self.bullets.remove(bullet)
+            bullet.update()
+            if bullet.y < 0 or bullet.y > 600:  # 画面外に出たら削除
+                self.bullets.remove(bullet)
+
+
         if self.uhp > 0:       
          screen.blit(self.enemy_image, (self.ux, self.uy))
+        
+        # 敵がいる場合のみ弾を描画
+        if self.uhp > 0:
+            for bullet in self.bullets:
+                bullet.draw(screen)
+        else:
+            self.bullets.clear()  # 敵が消えたら弾も消去
+
+        # プレイヤーとの当たり判定
+        for bullet in self.bullets[:]:
+            if bullet.check_collision(gamen):
+                # プレイヤーに当たったときの処理
+                print("プレイヤーに当たった！")  # ここでダメージ処理などを追加
+
+                # 弾を消去
+                self.bullets.remove(bullet)
+
+class Bullet():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.vy = 1  # 弾の速度
+
+    def update(self):
+        self.y += self.vy  # 上方向に移動
+
+    def draw(self, screen):
+        pygame.draw.circle(screen, (255, 0, 0), (self.x, self.y), 5)  # 赤い弾を描画
+
+    def check_collision(self, player):
+        bullet_rect = pygame.Rect(self.x - 5, self.y - 5, 10, 10)  # 弾の範囲
+        return bullet_rect.colliderect(player.get_rect())
 
 class Tama():
     def __init__(self):
@@ -82,10 +141,17 @@ class Tama():
         self.x = 216
         self.y = 480
         self.vy = 0
+        self.radius = 5  # 半径をここで初期化
+        self.hp = 1  # HPを初期化
+        self.is_alive = True  # 生存フラグ
+
     def update(self,screen):
         #タマの処理と描画
-        self.y = self.y + self.vy
+        self.y += self.vy
         pygame.draw.circle(screen,(10,10,10),(self.x,self.y),5)              # ●
+
+    def get_rect(self):
+        return pygame.Rect(self.x - self.radius, self.y - self.radius, self.radius * 2, self.radius * 2)
 
 def main():
     pygame.init()                                 # Pygameの初期化
@@ -101,14 +167,16 @@ def main():
     P1=Player()
     U1=UFO()
     while True:
+        screen.fill((255, 255, 255)) 
         screen.blit(blue, rect_blue) 
         screen.blit(text, (300, 300))  # フォントの描画
 
         T1.update(screen)
-        P1.update(screen,T1)
+        if T1.is_alive:  # 生存している場合のみ描画
+         P1.update(screen,T1)
         U1.update(screen,T1)
         
-        pygame.display.update()                                       # 画面更新
+        pygame.display.update()    # 画面更新
             
 if __name__ == "__main__":
     main()
