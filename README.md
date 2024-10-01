@@ -25,6 +25,10 @@
  ◇成果物（Python） <br>
 https://github.com/user-attachments/assets/142d921c-bc30-48e1-b47e-cea96d96c3c5
  <br> <br>
+●成果物アップデート後<br> 
+敵オブジェクトに攻撃判定と、味方オブジェクトに当たり判定を加えました。<br>
+https://github.com/user-attachments/assets/a1c2aed7-5d53-4ed0-b785-405b5fca7d66
+ <br> <br>
 ライブラリでPyGameを利用しているため、Webサイトへアップロードできず、 <br>
 実行ファイルはGitHubの制限によりアップロードできませんでした。<br>
 代替として、起動後の内容を録画して上記へ入れました。<br>
@@ -48,10 +52,6 @@ GitHubへ「janken」というjavaファイルを置いています。<br>
 ジャンケンをするだけの内容です。<br>
 これだけだと面白くないので、このjankenファイルにPythonを組みあわせて、<br>
 プレイヤーの回答によって学習したりJavaのswingを使ってUIを凝ったものにできないかやってみたいと思います。<br>
-本当にできるのか分かりませんが、インターネット等で検索して、作ってみます。<br>
-JSON＞Jacksonを使って、JavaとPython間のデータのやり取りをやってみる＞<br>
-JavaとPython間のデータ連携が正常にできない＞いったんPythonのみで機械学習の開発をやってみる<br>
-
 # 学んだこと
 ※適宜更新予定です<br>
 
