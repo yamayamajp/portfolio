@@ -12,6 +12,7 @@ public class janken {
         final int CHOKI = 1;
         final int PA = 2;
 
+        
         while (true) {
             System.out.print("じゃんけん！ (0:グー, 1:チョキ, 2:パー) >> ");
             int userHand = scanner.nextInt();
